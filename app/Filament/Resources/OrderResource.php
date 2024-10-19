@@ -53,9 +53,10 @@ class OrderResource extends Resource
                                 ->disabled()
                                 ->dehydrated()
                                 ->required(),
-                            Forms\Components\Select::make('customer_id')
+                                Forms\Components\Select::make('customer_id')
                                 ->label('Cliente')
                                 ->relationship('customer', 'last_name')
+                                ->getOptionLabelFromRecordUsing(fn($record) => $record->last_name . ' ' . $record->first_name)
                                 ->searchable()
                                 ->required(),
                                 Forms\Components\Select::make('status')                    
