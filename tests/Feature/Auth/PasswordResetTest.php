@@ -7,7 +7,7 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Volt\Volt;
 
-test('reset password link screen can be rendered', function () {
+test('se puede renderizar la pantalla de enlace para restablecer contraseña', function () {
     $response = $this->get('/forgot-password');
 
     $response
@@ -15,7 +15,7 @@ test('reset password link screen can be rendered', function () {
         ->assertStatus(200);
 });
 
-test('reset password link can be requested', function () {
+test('se puede solicitar el enlace para restablecer contraseña', function () {
     Notification::fake();
 
     $user = User::factory()->create();
@@ -27,7 +27,7 @@ test('reset password link can be requested', function () {
     Notification::assertSentTo($user, ResetPassword::class);
 });
 
-test('reset password screen can be rendered', function () {
+test('se puede renderizar la pantalla de restablecimiento de contraseña', function () {
     Notification::fake();
 
     $user = User::factory()->create();
@@ -47,7 +47,7 @@ test('reset password screen can be rendered', function () {
     });
 });
 
-test('password can be reset with valid token', function () {
+test('se puede restablecer la contraseña con un token válido', function () {
     Notification::fake();
 
     $user = User::factory()->create();

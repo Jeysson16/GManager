@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -27,7 +28,6 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
                 TextInput::make('name')
                 ->required(),
                 TextInput::make('email')
@@ -40,6 +40,7 @@ class UserResource extends Resource
                 Select::make('roles')
                 ->multiple()
                 ->relationship('roles','name'),
+                Checkbox::make('is_admin'),
             ]);
     }
 

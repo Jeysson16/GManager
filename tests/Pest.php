@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -46,3 +47,8 @@ function something()
 {
     // ..
 }
+
+beforeAll(function () {
+    // Prepare something once before any of this file's tests run...
+    $this->actingAs(User::factory()->create());
+});

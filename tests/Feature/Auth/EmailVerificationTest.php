@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
-test('email verification screen can be rendered', function () {
+test('se puede renderizar la pantalla de verificación de correo electrónico', function () {
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -16,7 +16,7 @@ test('email verification screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
-test('email can be verified', function () {
+test('se puede verificar el correo electrónico', function () {
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -36,7 +36,7 @@ test('email can be verified', function () {
     $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
 });
 
-test('email is not verified with invalid hash', function () {
+test('el correo electrónico no se verifica con un hash inválido', function () {
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -44,7 +44,7 @@ test('email is not verified with invalid hash', function () {
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1('wrong-email')]
+        ['id' => $user->id, 'hash' => sha1('correo-incorrecto')]
     );
 
     $this->actingAs($user)->get($verificationUrl);

@@ -4,7 +4,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Livewire\Volt\Volt;
 
-test('login screen can be rendered', function () {
+test('se puede renderizar la pantalla de inicio de sesión', function () {
     $response = $this->get('/login');
 
     $response
@@ -12,7 +12,7 @@ test('login screen can be rendered', function () {
         ->assertOk();
 });
 
-test('users can authenticate using the login screen', function () {
+test('los usuarios pueden autenticarse usando la pantalla de inicio de sesión', function () {
     $user = User::factory()->create();
 
     $component = Volt::test('pages.auth.login')
@@ -23,17 +23,17 @@ test('users can authenticate using the login screen', function () {
 
     $component
         ->assertHasNoErrors()
-        ->assertRedirect(RouteServiceProvider::HOME);
+        ->assertRedirect('mantenimiento');
 
     $this->assertAuthenticated();
 });
 
-test('users can not authenticate with invalid password', function () {
+test('los usuarios no pueden autenticarse con una contraseña inválida', function () {
     $user = User::factory()->create();
 
     $component = Volt::test('pages.auth.login')
         ->set('form.email', $user->email)
-        ->set('form.password', 'wrong-password');
+        ->set('form.password', 'contraseña-incorrecta');
 
     $component->call('login');
 
@@ -44,7 +44,7 @@ test('users can not authenticate with invalid password', function () {
     $this->assertGuest();
 });
 
-test('navigation menu can be rendered', function () {
+test('se puede renderizar el menú de navegación', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -56,7 +56,7 @@ test('navigation menu can be rendered', function () {
         ->assertOk();
 });
 
-test('users can logout', function () {
+test('los usuarios pueden cerrar sesión', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -67,7 +67,7 @@ test('users can logout', function () {
 
     $component
         ->assertHasNoErrors()
-        ->assertRedirect('/');
+        ->assertRedirect('/gracias');
 
     $this->assertGuest();
 });

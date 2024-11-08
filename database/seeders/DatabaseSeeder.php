@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CustomersTableSeeder::class,
             MaterialsTableSeeder::class,
             StereotypesTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }
