@@ -15,8 +15,8 @@ test('la pantalla de registro puede renderizarse', function () {
 
 test('nuevos usuarios pueden registrarse', function () {
     $component = Volt::test('pages.auth.register')
-        ->set('name', 'Usuario de Prueba')
-        ->set('email', 'prueba@example.com')
+        ->set('name', 'Test User')
+        ->set('email', 'test@example.com')
         ->set('password', 'password')
         ->set('password_confirmation', 'password');
 

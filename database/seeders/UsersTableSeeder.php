@@ -18,8 +18,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Jeysson Manuel Sánchez Rodríguez',
                 'email' => 'jeysson_s.r@hotmail.com',
-                'password' => Hash::make('jeysson12345'),
-                'is_admin' => true,
+                'password' => Hash::make('jeysson12345')
             ],
         ]);
     }

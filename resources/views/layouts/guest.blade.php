@@ -23,10 +23,9 @@
         </script>
     </head>
     <body class="light font-sans text-gray-900 antialiased bg-gray-50 dark:bg-gray-800">
-        <!-- Barra Lateral y nav -->
-        @include('partials.sidebar')
+        <livewire:layout.navigation />
         <!-- contenido -->
-        <div class="p-4 sm:ml-64 dark:bg-gray-800  mt-14">
+        <div class="p-4 dark:bg-gray-800  mt-14">
             {{ $slot }}
         </div>
         

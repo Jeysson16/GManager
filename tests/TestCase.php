@@ -2,13 +2,15 @@
 
 namespace Tests;
 
-use App\Models\User;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Filament\Facades\Filament;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    
     public $adminUser;
 
     protected function setUp(): void{
@@ -16,6 +18,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->seed();
 
-        $this->adminUser = User::where('name', 'Jeysson Manuel Sánchez Rodríguez')->first();
+        $this->adminUser = User::where('email', 'jeysson_s.r@hotmail.com')->first();
+
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', '/inicio');
 
 
 Route::view('/gracias', '/gracias');
@@ -23,6 +23,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+
+    Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+    
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

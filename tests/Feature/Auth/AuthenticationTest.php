@@ -49,7 +49,7 @@ test('se puede renderizar el menú de navegación', function () {
 
     $this->actingAs($user);
 
-    $response = $this->get('/dashboard');
+    $response = $this->get('/');
 
     $response
         ->assertSeeVolt('layout.navigation')
