@@ -20,12 +20,6 @@ new class extends Component
    <div class="px-3 py-3 lg:px-5 lg:pl-3 relative">
        <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
-                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Barra Lateral</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-                    </svg>
-                </button>
                 <a href="/" class="absolute left-0 flex ms-2">
                   <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-red-600 dark:text-red-400">GM</span>
                   <span class="ml-1 self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-blue-900 dark:text-white">Estilos</span>
@@ -52,6 +46,10 @@ new class extends Component
                     @endguest
                 </ul>
             </div>
+            <button id="theme-toggle">
+                <span id="theme-toggle-dark-icon" class="hidden">🌙</span>
+                <span id="theme-toggle-light-icon" class="hidden">☀️</span>
+            </button>
             <!-- User Menu -->
             <div class="flex items-center ms-3">
                 <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -89,3 +87,40 @@ new class extends Component
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Accede al botón y a los iconos
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Comprobar el tema actual y establecer el estado inicial de los íconos
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            darkIcon.classList.remove('hidden');
+            lightIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            darkIcon.classList.add('hidden');
+            lightIcon.classList.remove('hidden');
+        }
+
+        // Alternar entre tema claro y oscuro cuando se haga clic en el botón
+        themeToggleButton.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                // Cambiar a tema claro
+                document.documentElement.classList.remove('dark');
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Cambiar a tema oscuro
+                document.documentElement.classList.add('dark');
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    });
+</script>
