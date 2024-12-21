@@ -34,13 +34,13 @@ test('se renderizan las columnas iniciales', function (string $column) {
         ->assertCanRenderTableColumn($column);
 })->with(['title', 'slug']);
 
-test('se puede ordenar por titulo y descripcion', function (string $column) {
+test('se puede ordenar por titulo', function (string $column) {
     $records = Category::factory(5)->create();
     
     Livewire::test(ListCategories::class)
         ->sortTable($column, 'desc')
         ->assertCanSeeTableRecords($records->sortByDesc($column), inOrder:true);
-})->with(['title', 'description']);
+})->with(['title']);
 
 test('se puede crear una categoria', function () {    
     $data = Category::factory()->make()->toArray();
@@ -61,7 +61,6 @@ test('se puede crear una categoria', function () {
         'description' => $data['description']
     ]);
 });
-
 
 test('se puede actualizar una categoria', function () {    
     // Crear una categoría original

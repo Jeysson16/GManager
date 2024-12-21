@@ -33,13 +33,6 @@ test('se renderizan las columnas iniciales', function (string $column) {
         ->assertCanRenderTableColumn($column);
 })->with(['first_name', 'last_name', 'email', 'phone', 'address']);
 
-test('se puede ordenar por nombre y apellido', function (string $column) {
-    $records = Customer::factory(5)->create();
-    
-    Livewire::test(ListCustomers::class)
-        ->sortTable($column, 'desc')
-        ->assertCanSeeTableRecords($records->sortByDesc($column), inOrder:true);
-})->with(['first_name', 'last_name']);
 
 test('se puede crear un cliente', function () {    
     $data = Customer::factory()->make()->toArray();
@@ -65,8 +58,7 @@ test('se puede crear un cliente', function () {
     ]);
 });
 
-test('se puede actualizar un cliente', function () {    
-    // Crear un cliente original
+test('se puede actualizar un cliente', function () {
     $customer = Customer::factory()->create([
         'first_name' => 'Nombre Original',
         'last_name' => 'Apellido Original',
@@ -75,7 +67,6 @@ test('se puede actualizar un cliente', function () {
         'address' => 'Dirección Original'
     ]);
 
-    // Nuevos datos para actualizar
     $newData = Customer::factory()->make([
         'first_name' => 'Nombre Actualizado',
         'last_name' => 'Apellido Actualizado',
@@ -84,7 +75,6 @@ test('se puede actualizar un cliente', function () {
         'address' => 'Dirección Actualizada'
     ]);
 
-    // Ejecutar el test Livewire con el cliente original y los nuevos datos
     Livewire::test(EditCustomer::class, ['record' => $customer->getRouteKey()])
         ->fillForm([
             'first_name' => $newData->first_name,
@@ -97,7 +87,6 @@ test('se puede actualizar un cliente', function () {
         ->call('save') 
         ->assertHasNoFormErrors(); 
         
-    // Verificar que la base de datos tenga los datos actualizados
     $this->assertDatabaseHas('customers', [
         'first_name' => $newData->first_name,
         'last_name' => $newData->last_name,

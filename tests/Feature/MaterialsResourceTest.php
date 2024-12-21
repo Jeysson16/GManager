@@ -35,18 +35,16 @@ test('se renderizan las columnas iniciales en la lista de materiales', function 
         ->assertCanRenderTableColumn($column);
 })->with(['title', 'color', 'unit_of_measure', 'stock']);
 
-// test('se puede ordenar por título y descripción', function (string $column) {
-//     $records = Material::factory(5)->create();
+test('se puede ordenar por stock', function (string $column) {
+    $records = Material::factory(5)->create();
     
-//     Livewire::test(ListMaterials::class)
-//         ->sortTable($column, 'desc')
-//         ->assertCanSeeTableRecords($records->sortByDesc($column), inOrder: true);
-// })->with(['title', 'unit_of_measure', 'stock']);
+    Livewire::test(ListMaterials::class)
+        ->sortTable($column, 'desc')
+        ->assertCanSeeTableRecords($records->sortByDesc($column), inOrder: true);
+})->with(['stock']);
 
 test('se puede crear un material', function () {    
-    // Crear un cliente primero
     $customer = Customer::factory()->create();
-
     $data = Material::factory()->make()->toArray();
 
     Livewire::test(CreateMaterial::class)
@@ -56,7 +54,7 @@ test('se puede crear un material', function () {
             'color' => $data['color'],
             'unit_of_measure' => $data['unit_of_measure'],
             'stock' => $data['stock'],
-            'customer_id' => $customer->id,  // Asegúrate de incluir el customer_id
+            'customer_id' => $customer->id,
         ])
         ->assertActionExists('create')
         ->call('create')
@@ -68,12 +66,11 @@ test('se puede crear un material', function () {
         'color' => $data['color'],
         'unit_of_measure' => $data['unit_of_measure'],
         'stock' => $data['stock'],
-        'customer_id' => $customer->id,  // Verifica que se haya guardado correctamente el customer_id
+        'customer_id' => $customer->id,
     ]);
 });
 
 test('se puede actualizar un material', function () {    
-    // Crear un material original
     $material = Material::factory()->create([
         'title' => 'Título Original',
         'description' => 'Descripción original',
@@ -82,7 +79,6 @@ test('se puede actualizar un material', function () {
         'stock' => 10.00
     ]);
 
-    // Nuevos datos para actualizar
     $newData = Material::factory()->make([
         'title' => 'Título Actualizado',
         'description' => 'Descripción actualizada',
@@ -91,7 +87,6 @@ test('se puede actualizar un material', function () {
         'stock' => 20.00
     ]);
 
-    // Ejecutar el test Livewire con el material original y los nuevos datos
     Livewire::test(EditMaterial::class, ['record' => $material->getRouteKey()])
         ->fillForm([
             'title' => $newData->title,
@@ -104,7 +99,6 @@ test('se puede actualizar un material', function () {
         ->call('save')
         ->assertHasNoFormErrors();
         
-    // Verificar que la base de datos tenga los datos actualizados
     $this->assertDatabaseHas('materials', [
         'title' => $newData->title,
         'description' => $newData->description,
